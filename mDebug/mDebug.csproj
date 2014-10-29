@@ -109,7 +109,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcheCore\mCore.csproj">
+    <ProjectReference Include="..\mCore\mCore.csproj">
       <Project>{390fbec2-ac5e-4ad9-9207-7a18353b6893}</Project>
       <Name>mCore</Name>
     </ProjectReference>
