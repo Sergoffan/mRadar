@@ -18,8 +18,10 @@ namespace mCore.Radar
             111, //warehouse manager, other npcs
             149, //blue salt brotherhood
             113, 109, //farran
+            157, //stablehands
             164, //airship conductor, other critters
             168 //harani guard
+
         };
 
         public static uint[] AlliedFactionsWest = new uint[] {
@@ -145,12 +147,14 @@ namespace mCore.Radar
                     continue;    
                 }
 
-                if (settings.ShowHarvestable) {
+                if (settings.ShowHarvestableTrees) {
                     if (sk.id == 13975 || sk.name.StartsWith("Chop Tree")) {
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.HarvestableTree });
                         continue;
                     }
+                }
 
+                if (settings.ShowHarvestablePlants) {
                     if (sk.name.StartsWith("Gather") || sk.name.StartsWith("Harvest")) {
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.HarvestablePlant });
                         continue;
@@ -161,13 +165,7 @@ namespace mCore.Radar
                         continue;
                     }
 
-                    if (sk.id == 13975 || sk.name.StartsWith("Chop Tree"))
-                    {
-                        FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.HarvestableTree });
-                        continue;
-                    }
-
-                    if (sk.name.StartsWith("Butcher") && settings.ShowHarvestable)
+                    if (sk.name.StartsWith("Butcher") && settings.ShowHarvestablePlants)
                     {
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.Butcherable });
                         continue;

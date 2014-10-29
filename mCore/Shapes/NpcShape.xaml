@@ -8,7 +8,7 @@
     <Ellipse Margin="0" Width="4"
                            Height="4"
                            Fill="#ff006600"
-               Canvas.Top="-2" Canvas.Left="-2" Name="rect">
+               Canvas.Top="-3" Canvas.Left="0" Name="rect">
     </Ellipse>
     
 </Canvas>

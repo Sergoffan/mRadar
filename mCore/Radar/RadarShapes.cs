@@ -87,7 +87,7 @@ namespace mCore.Radar
                     return Brushes.Red;
 
                 case ObjectCategory.EnemyNPC:
-                    return Brushes.DarkRed;
+                    return Brushes.OrangeRed;
 
                 case ObjectCategory.FriendlyPlayer:
                     return Brushes.Green;

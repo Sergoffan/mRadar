@@ -167,7 +167,7 @@ namespace mCore.Radar
 
             RadarTab settings = CurrentSettings.ActiveTab;
 
-            if (settings.ShowDoodads || settings.ShowHarvestable || settings.ShowUprootable || settings.ShowTradePacks)
+            if (settings.ShowDoodads || settings.ShowHarvestableTrees || settings.ShowHarvestablePlants || settings.ShowUprootable || settings.ShowTradePacks)
             {
                 doodads = RadarScanner.ScanDoodads(settings, ArcheBuddyCore);
             } else {
@@ -214,7 +214,7 @@ namespace mCore.Radar
                 return new RadarSettings
                 {
                     Tabs = new List<RadarTab>(new RadarTab[] { 
-                            new RadarTab { ShowHarvestable = true, ShowUprootable = true, Index = 1,  Name = "1", DisplayNames = true }//,
+                            new RadarTab { ShowHarvestableTrees = true, ShowAlliedPlayers = true, ShowEnemyPlayers = true, Index = 1,  Name = "1", DisplayNames = true }//,
                             //new RadarTab { ShowAll = true, Index = 2, Name = "2" }
                         }),
                     ActiveTabIndex = 0,

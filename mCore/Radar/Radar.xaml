@@ -4,7 +4,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ArcheCoreRadar="clr-namespace:mCore.Radar"
         xmlns:sys="clr-namespace:System"
-        Title="Radar" Height="400" Width="600"
+        Title="Radar" Height="500" Width="700"
         ShowMaxRestoreButton="False" ShowMinButton="False"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         ShowTitleBar="False"

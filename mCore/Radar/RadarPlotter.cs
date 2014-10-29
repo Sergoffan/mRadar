@@ -219,7 +219,7 @@ namespace mCore.Radar
                 RadarCanvas.Children.Add(txt);
             }
 
-            Canvas.SetTop(txt, y + 12);
+            Canvas.SetTop(txt, y + 10);
             Canvas.SetLeft(txt, x + 10); 
             txt.Visibility = Visibility.Visible;
 

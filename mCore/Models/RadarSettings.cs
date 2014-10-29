@@ -81,7 +81,8 @@ namespace mCore.Models
 
         private bool _showEnemyPlayers;
         private bool _showFriendlyPlayers;
-        private bool _showHarvestable;
+        private bool _showHarvestableTrees;
+        private bool _showHarvestablePlants;
         private bool _showUprootable;
         private bool _showFriendlyNPCs;
         private bool _showEnemyNPCs;
@@ -106,9 +107,18 @@ namespace mCore.Models
             this.OnPropertyChanged(null);
         } }
 
-        public bool ShowHarvestable { get { return _showHarvestable; } set { 
-            _showHarvestable = value;
-            this.OnPropertyChanged(null); } }
+        public bool ShowHarvestableTrees { get { return _showHarvestableTrees; } set { 
+            _showHarvestableTrees = value;
+            this.OnPropertyChanged("ShowHarvestableTrees"); } }
+
+        public bool ShowHarvestablePlants
+        {
+            get { return _showHarvestablePlants; }
+            set {
+                _showHarvestablePlants = value;
+                this.OnPropertyChanged("ShowHarvestablePlants");
+            }
+        }
 
         public bool ShowUprootable { get { return _showUprootable; } set { 
             _showUprootable = value; 
@@ -154,7 +164,8 @@ namespace mCore.Models
                 {  //when realestate is on, hide everything else
                     _showEnemyPlayers = false;
                     _showFriendlyPlayers = false;
-                    _showHarvestable = false;
+                    _showHarvestableTrees = false;
+                    _showHarvestablePlants = false;
                     _showUprootable = false;
                     _showFriendlyNPCs = false;
                     _showEnemyNPCs = false;

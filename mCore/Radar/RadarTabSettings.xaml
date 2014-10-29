@@ -13,10 +13,13 @@
         </StackPanel>
         <CheckBox Margin="4" IsChecked="{Binding DisplayNames, Mode=TwoWay}">Show Names</CheckBox>
         
-        <CheckBox Margin="4" IsChecked="{Binding ShowHarvestable, Mode=TwoWay}">Harvestable</CheckBox>    
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Margin="4" IsChecked="{Binding ShowHarvestableTrees, Mode=TwoWay}" Width="70">Trees</CheckBox>
+            <CheckBox Margin="4" IsChecked="{Binding ShowHarvestablePlants, Mode=TwoWay}">Plants, etc</CheckBox>
+        </StackPanel>
         
-        <CheckBox Margin="4" IsChecked="{Binding ShowUprootable, Mode=TwoWay}">Uprootable</CheckBox>
-        <!--<CheckBox Margin="4" IsChecked="{Binding ShowTradePacks, Mode=TwoWay}">Trade Packs</CheckBox>-->
+        <CheckBox Margin="4" IsChecked="{Binding ShowUprootable, Mode=TwoWay}">Uproot</CheckBox>
+        <CheckBox Margin="4" IsChecked="{Binding ShowTradePacks, Mode=TwoWay}">Trade Packs</CheckBox>
         <DockPanel>
             <CheckBox Margin="4" IsChecked="{Binding ShowRealEstate, Mode=TwoWay}">Real Estate</CheckBox>
             <!--<CheckBox Margin="4" IsChecked="{Binding ScanForTaxes, Mode=TwoWay}" HorizontalAlignment="Right" IsEnabled="False">Scan Taxes</CheckBox>-->
