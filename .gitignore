@@ -3,3 +3,8 @@ mCore/obj/Debug/
 mDebug/bin/Debug/
 mDebug/obj/Debug/
 *.cache
+*.cache
+*.cache
+mCore/obj/Debug/mCore.csproj.FileListAbsolute.txt
+mCore/obj/Debug/mCore.csprojResolveAssemblyReference.cache
+mCore/obj/Debug/mRadar.dll
