@@ -11,6 +11,6 @@ House scanner is disabled.
 
 If you like this, your donation would help a lot!  If you donate, I can respond more to requests, questions, maybe offer beta test new features.
 
-[Donate](https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=XN7WUBK9LJTUY)
+>>[Donate Link](https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=XN7WUBK9LJTUY)<<
 
 Add me on skype: tempura.sauce
