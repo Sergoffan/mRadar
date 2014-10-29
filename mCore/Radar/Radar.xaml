@@ -38,20 +38,25 @@
             </Border.RenderTransform>
             <DockPanel LastChildFill="True" Name="RadarDock">
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
-                    <StackPanel Orientation="Horizontal">
+                    
+                    <StackPanel Orientation="Horizontal" Visibility="Hidden">
                         <TextBlock Text="Scale" Foreground="AntiqueWhite" Margin="10,5"/>
                         <Slider Width="100" Minimum="0.5" Maximum="3" Value="1" Name="CanvasZoomSlider" Style="{DynamicResource FlatSlider}"/>
                     </StackPanel>
+                    
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Debug: </TextBlock>
                         <Button Margin="5,0,0,0" Name="DebugNearestDoodadButton" Click="DebugNearestDoodadClick">Doodad</Button>
                         <Button Margin="5,0,0,0" Name="DebugTargetCreatureButton" Click="DebugTargetCreatureClick">Target</Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    
+                    <!-- kind of useless right now -->
+                    <StackPanel Orientation="Horizontal" Visibility="Hidden">
                         <TextBlock VerticalAlignment="Center">Housing: </TextBlock>
                         <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="DumpRedRealEstate">Export</Button>
                         <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="ForgetAllHouses">Forget</Button>
                     </StackPanel>
+                    
                 </StackPanel>
                 <TabControl Name="RadarSettingsTabs" Controls:ControlsHelper.IsUnderlined="True" Width="200" SelectedIndex="0" Background="Black" DockPanel.Dock="Top">
                     <TabItem>
@@ -82,6 +87,24 @@
                             <ArcheCoreRadar:RadarDisplaySettings DataContext="{Binding CurrentSettings.DisplaySettings}"/>
                         </StackPanel>
                         
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <Rectangle Margin="10" Width="20"
+                               Height="20"
+                               Fill="#fff3f3f3"
+                               Canvas.Top="-8" Canvas.Left="-3">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_information_circle}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </TabItem.Header>
+                        <StackPanel>
+                            <TextBlock Margin="10,20,0,0">mRadar by Tempura</TextBlock>
+                            <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Tips:</TextBlock>
+                            <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Double click radar to hide settings box.</TextBlock>
+                            <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Opacity 0 will let you interact with game underneath.</TextBlock>
+                        </StackPanel>
                     </TabItem>
                     <!--
                     <TabControl.Resources>

@@ -285,6 +285,7 @@ namespace mCore.Radar
 
             return nearest;
         }
+
         private ClassifiedObject GetNearestVisibleDoodad()
         {
             //find the nearest visible object

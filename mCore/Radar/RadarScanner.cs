@@ -14,6 +14,7 @@ namespace mCore.Radar
         //162 
         public static uint[] AlliedFactionsEast = new uint[] {
             1, //glorious nui, gold trader
+            2, //neutral critters
             111, //warehouse manager, other npcs
             149, //blue salt brotherhood
             113, 109, //farran
@@ -23,7 +24,7 @@ namespace mCore.Radar
 
         public static uint[] AlliedFactionsWest = new uint[] {
             1,
-            2, //critter
+            2, //neutral critter
             101, //Nuian
             167, //Nuia Alliance Sentry
         };
