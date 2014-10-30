@@ -1,6 +1,8 @@
 mRadar
 ======
 
+**You need Visual Studio to compile this.**
+
 Two projects in solution:
 
 mCore - set the build directory of this project to your plugins folder.
