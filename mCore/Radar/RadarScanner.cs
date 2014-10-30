@@ -101,6 +101,8 @@ namespace mCore.Radar
                     //ignore Glorious Nui because, who cares
                     if (c.name.Equals("Glorious Nui")) continue;
 
+                    if (c.factionId == 1054) continue; //ignore fast travel portals
+
                     if (PlayerIsEast) IsAllied = AlliedFactionsEast.Contains(c.factionId);
                     else if (PlayerIsPirate) IsAllied = AlliedFactionsPirate.Contains(c.factionId);
                     else IsAllied = AlliedFactionsWest.Contains(c.factionId);
