@@ -21,10 +21,6 @@
         <CheckBox Margin="4" IsChecked="{Binding ShowUprootable, Mode=TwoWay}">Uproot</CheckBox>
         <CheckBox Margin="4" IsChecked="{Binding ShowTradePacks, Mode=TwoWay}">Trade Packs</CheckBox>
         <DockPanel>
-            <CheckBox Margin="4" IsChecked="{Binding ShowRealEstate, Mode=TwoWay}">Real Estate</CheckBox>
-            <!--<CheckBox Margin="4" IsChecked="{Binding ScanForTaxes, Mode=TwoWay}" HorizontalAlignment="Right" IsEnabled="False">Scan Taxes</CheckBox>-->
-        </DockPanel>
-        <DockPanel>
             <CheckBox Margin="4" IsChecked="{Binding ShowAlliedPlayers, Mode=TwoWay}">Friendly Players</CheckBox>
             <!--<TextBox Width="50" DockPanel.Dock="Right" Text="{Binding TaxScanRate}" IsEnabled="False" HorizontalAlignment="Right"></TextBox>-->
             <!--<Label DockPanel.Dock="Right" HorizontalAlignment="Right">Scan Delay</Label>-->

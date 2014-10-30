@@ -14,7 +14,7 @@ using mCore.Shapes;
 
 namespace mCore.Radar
 {
-    class RadarPlotter
+    public class RadarPlotter
     {
         Core ArcheBuddyCore;
         Canvas RadarCanvas;
@@ -24,7 +24,7 @@ namespace mCore.Radar
         RadarWindow radarWindow;
         public HouseScanner houseScanner;
 
-        public Dictionary<string, UIElement> VectorCache;
+        public Dictionary<uint, UIElement> VectorCache;
         
         public bool UseSimpleDots = false;
 
@@ -37,7 +37,7 @@ namespace mCore.Radar
             RadarArea = radarWindow.RadarArea;
             PlayerDot = radarWindow.PlayerDot;
             PlayerViewingDirection = radarWindow.PlayerViewingDirection;
-            VectorCache = new Dictionary<string, UIElement>();
+            VectorCache = new Dictionary<uint, UIElement>();
             houseScanner = new HouseScanner(this, radarWindow);
 
             ThunderBeeped = new Dictionary<uint, bool>();
@@ -61,15 +61,27 @@ namespace mCore.Radar
                 ele.Visibility = Visibility.Hidden;
             }
 
+            //except for houses
+            foreach (HouseClone house in houseScanner.AllHouses.Values)
+            {
+                house.vector.Visibility = Visibility.Visible;
+            }
+
             if (doodads != null)
             {
                 foreach (ClassifiedObject co in doodads)
                 {
                     DrawObjectSymbol(co);
 
+                    if (radarWindow.CurrentSettings.DisplaySettings.BeepThunder && co.category == ObjectCategory.ThunderstruckTree && !ThunderBeeped.ContainsKey(co.obj.objId))
+                    {
+                        radarWindow.Beep(null,null);
+                        ThunderBeeped[co.obj.objId] = true;
+                    }
+
                     //draw text 
                     if (radarWindow.CurrentSettings.ActiveTab.DisplayNames)
-                        DrawText(co.obj.objId.ToString(), ((DoodadObject)co.obj).name, co.obj.X, co.obj.Y, co.category.Color());
+                        DrawText(co.obj.objId, ((DoodadObject)co.obj).name, co.obj.X, co.obj.Y, co.category.Color());
                 }
             }
 
@@ -79,15 +91,12 @@ namespace mCore.Radar
                 {
                     DrawObjectSymbol(co);
 
-                    if (radarWindow.CurrentSettings.DisplaySettings.BeepThunder && co.category == ObjectCategory.ThunderstruckTree && !ThunderBeeped[co.obj.objId]) {
-                        radarWindow.Beep();
-                        ThunderBeeped[co.obj.objId] = true;
-                    }
                     //draw text 
                     if (radarWindow.CurrentSettings.ActiveTab.DisplayNames && !(co.obj is Housing))
-                        DrawText(co.obj.objId.ToString(), ((Creature)co.obj).name, co.obj.X, co.obj.Y, co.category.Color());
+                        DrawText(co.obj.objId * 100, ((Creature)co.obj).name, co.obj.X, co.obj.Y, co.category.Color());
                 }
             }
+            houseScanner.Tick();
             UpdatePlayer();
         }
 
@@ -98,7 +107,7 @@ namespace mCore.Radar
 
             if (UseSimpleDots)
             {
-                DrawDot(o.objId.ToString(), o.X, o.Y, CObj.category.Color());
+                DrawDot(o.objId, o.X, o.Y, CObj.category.Color());
             }
             else
             {
@@ -134,21 +143,24 @@ namespace mCore.Radar
 
         private void RemoveObjectFromRadar(SpawnObject o)
         {
-            UIElement vec = LookupVector(o.objId.ToString());
-            UIElement txt = LookupVector("text-" + o.objId.ToString());
+            //do not remove housing from radar, since they don't move
+            if (o.type == BotTypes.Housing) return;
+
+            UIElement vec = LookupVector(o.objId);
+            UIElement txt = LookupVector(o.objId * 100);
 
             RadarCanvas.Children.Remove(vec);
             RadarCanvas.Children.Remove(txt);
 
-            PurgeVector(o.objId.ToString());
-            PurgeVector("text-" + o.objId.ToString());
+            PurgeVector(o.objId);
+            PurgeVector(o.objId * 100); //mathematically unlikely to collide (hopefully lol)
         }
-        private void PurgeVector(string key)
+        private void PurgeVector(uint key)
         {
             if (VectorCache != null && VectorCache.ContainsKey(key))
                 VectorCache.Remove(key);
         }
-        private UIElement LookupVector(string key)
+        private UIElement LookupVector(uint key)
         {
             if (key != null && VectorCache != null && VectorCache.ContainsKey(key))
             {
@@ -157,7 +169,7 @@ namespace mCore.Radar
 
             return null;
         }
-        private void StoreVector(string key, UIElement vector)
+        private void StoreVector(uint key, UIElement vector)
         {
             if (VectorCache != null)
                 VectorCache[key] = vector;
@@ -165,7 +177,7 @@ namespace mCore.Radar
         private UIElement DrawShape(ClassifiedObject CObj)
         {
             SpawnObject o = CObj.obj;
-            string id = o.objId.ToString();
+            uint id = o.objId;
             double x = o.X;
             double y = o.Y;
 
@@ -183,7 +195,7 @@ namespace mCore.Radar
                 
             return shape;
         }
-        private UIElement DrawDot(string id, double x, double y, Brush color)
+        private UIElement DrawDot(uint id, double x, double y, Brush color)
         {
             UIElement dot = LookupVector(id);
             if (dot == null)
@@ -204,9 +216,9 @@ namespace mCore.Radar
             return dot;
         }
 
-        private UIElement DrawText(string id, string text, double x, double y, Brush color)
+        private UIElement DrawText(uint id, string text, double x, double y, Brush color)
         {
-            UIElement txt = LookupVector("text-" + id);
+            UIElement txt = LookupVector(id * 100);
             if (txt == null)
             {
                 txt = new TextBlock()
@@ -215,7 +227,7 @@ namespace mCore.Radar
                     Foreground = color,
                     RenderTransform = new ScaleTransform(1,-1)
                 };
-                StoreVector("text-" + id, txt);
+                StoreVector(id * 100, txt);
                 RadarCanvas.Children.Add(txt);
             }
 
@@ -228,7 +240,7 @@ namespace mCore.Radar
         private void UpdateShapeData(UIElement shape, ClassifiedObject obj)
         {
             //this is ugly, can there be a solution using WPF MVVM Databinding?
-            if (obj.obj.type == BotTypes.Housing && shape is ITimedObject)
+            if (obj.obj.type == BotTypes.Housing && shape is IHousing)
             {
                 houseScanner.ParseHouse(shape, (Housing)obj.obj);
             }
@@ -277,11 +289,11 @@ namespace mCore.Radar
         public void DrawTestCase()
         {
             //does some stuff on canvas when archeage is not running
-            DrawDot("center", 50, 50, Brushes.GhostWhite);
-            DrawDot("2", 100, 100, Brushes.GhostWhite);
-            DrawDot("3", 170, 170, Brushes.Green);
-            DrawDot("4", 200, 200, Brushes.GhostWhite);
-            DrawDot("5", 250, 250, Brushes.Red);
+            DrawDot(1, 50, 50, Brushes.GhostWhite);
+            DrawDot(2, 100, 100, Brushes.GhostWhite);
+            DrawDot(3, 170, 170, Brushes.Green);
+            DrawDot(4, 200, 200, Brushes.GhostWhite);
+            DrawDot(5, 250, 250, Brushes.Red);
             
             radarWindow.PlayerX = 150;
             radarWindow.PlayerY = 150;

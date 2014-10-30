@@ -41,6 +41,8 @@ namespace mCore.Radar
         private double _playerX = 59;
         private double _playerY = 59;
         private double _playerAngleDegrees = 180;
+        public bool HouseScannerEnabled { get { return HouseScanner.HouseScannerEnabled; } }
+
         public double PlayerX { get { return _playerX; } set { _playerX = value; } }
         public double PlayerY { get { return _playerY; } set { _playerY = value; } }
         public double PlayerAngleDegrees { get { return _playerAngleDegrees; } set { _playerAngleDegrees = value; } }
@@ -103,7 +105,6 @@ namespace mCore.Radar
                 //we use the UI thread to do the update
                 if (ArcheBuddyCore != null && Plotter != null)
                     Plotter.Draw(doodads, creatures);
-
             }
             catch (Exception ex)
             {
@@ -174,9 +175,9 @@ namespace mCore.Radar
                 doodads = null;
             }
 
-            if (settings.ShowAlliedPlayers || settings.ShowEnemyNPCs || settings.ShowEnemyPlayers || settings.ShowRealEstate || settings.ShowFriendlyNPCs)
+            if (settings.ShowAlliedPlayers || settings.ShowEnemyNPCs || settings.ShowEnemyPlayers || CurrentSettings.HouseScanSettings.ShowRealEstate || settings.ShowFriendlyNPCs)
             {
-                creatures = RadarScanner.ScanCreatures(settings, ArcheBuddyCore);
+                creatures = RadarScanner.ScanCreatures(CurrentSettings, ArcheBuddyCore);
             }
             else
             {
@@ -218,7 +219,8 @@ namespace mCore.Radar
                             //new RadarTab { ShowAll = true, Index = 2, Name = "2" }
                         }),
                     ActiveTabIndex = 0,
-                    DisplaySettings = new Models.RadarDisplaySettings { RadarOpacity = 0.8 }
+                    DisplaySettings = new Models.RadarDisplaySettings { RadarOpacity = 0.8 },
+                    HouseScanSettings = new HouseScanningSettings { ShowRealEstate = false }
                 };
             //}
             //else
@@ -330,12 +332,16 @@ namespace mCore.Radar
             }
         }
 
-        public void Beep()
+        public void Beep(object sender, RoutedEventArgs e)
         {
+            //I simply cannot get this to work in Archebuddy.  maybe somebody can help?
+            var player = new SoundPlayer(@"Resources/beep.wav");
+            player.Play();
+            /*
             Uri uri = new Uri(@"Resources/beep.wav",UriKind.Relative);
             var player = new MediaPlayer();
             player.Open(uri);
-            player.Play();
+            player.Play();*/
 
         }
         public event PropertyChangedEventHandler PropertyChanged;

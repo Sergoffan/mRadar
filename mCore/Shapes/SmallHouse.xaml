@@ -22,7 +22,7 @@
         
         <Rectangle Margin="0" Width="12"
                            Height="12"
-                           Fill="#88006600"
+                           Fill="#88666666"
                Canvas.Top="2" Canvas.Left="2">
             <Rectangle.OpacityMask>
                 <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_home}" />

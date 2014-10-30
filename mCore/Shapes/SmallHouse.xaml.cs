@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mCore.Radar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,14 @@ namespace mCore.Shapes
     /// <summary>
     /// Interaction logic for Tree.xaml
     /// </summary>
-    public partial class SmallHouse : Canvas, ITimedObject
+    public partial class SmallHouse : Canvas, IHousing
     {
         public static SolidColorBrush GreenFill = new SolidColorBrush(Color.FromArgb(38,38,128,38));
         public static SolidColorBrush GreenStroke = new SolidColorBrush(Color.FromArgb(128,0,128,0));
+        
+        public static SolidColorBrush ProbablyFill = new SolidColorBrush(Color.FromArgb(64, 128, 128, 0));
+        public static SolidColorBrush ProbablyStroke = new SolidColorBrush(Color.FromArgb(128, 128, 128, 0));
+
         public static SolidColorBrush RedFill = new SolidColorBrush(Color.FromArgb(64, 255, 0, 0));
         public static SolidColorBrush RedStroke = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         public static SolidColorBrush GrayFill = new SolidColorBrush(Color.FromArgb(64, 255, 255, 255));
@@ -32,43 +37,49 @@ namespace mCore.Shapes
             InitializeComponent();
         }
 
-        public void UpdateTime(byte weeksWithoutPay, ulong timeleft)
+        public void UpdateHouse(HouseClone house)
         {
-            UpdateTime(rect, Data, weeksWithoutPay, timeleft);
+            UpdateHouseVector(rect, Data, house);
         }
-        public static void UpdateTime(Shape rect, TextBlock data, byte weeksWithoutPay, ulong timeleft)
+        public static void UpdateHouseVector(Shape rect, TextBlock data, HouseClone house)
         {
-            if (weeksWithoutPay > 0) { 
-                data.Text = CalculateTimeLeft(timeleft);
-                rect.Stroke = Brushes.Red;
-                rect.Fill = new SolidColorBrush(Color.FromArgb(64, 255, 0, 0));
+            if (house.Status == HouseStatus.Unknown)
+            {
+                data.Text = "?";
+                rect.Stroke = GrayStroke;
+                rect.Fill = GrayFill;
+            }
+            else if (house.Status == HouseStatus.ProbablyProtected)
+            {
+                data.Text = "";
+                rect.Stroke = ProbablyStroke;
+                rect.Fill = ProbablyFill;
+            }
+            else if (house.Status == HouseStatus.Demolishing)
+            {
+                data.Text = TimeLeftString(house.taxPayedTime);
+                rect.Stroke = RedStroke;
+                rect.Fill = RedFill;
             }
             else
             {
-                if (timeleft <= 0)
-                {
-                    //unknown time left
-                    rect.Stroke = Brushes.Gray;
-                    rect.Fill = new SolidColorBrush(Color.FromArgb(64, 255, 255, 255));
-                    data.Text = "?";
-                }
-                else
-                {
-                    //house is not set for Demolition
-                    data.Text = "";
-                    rect.Stroke = SmallHouse.GreenStroke;
-                    rect.Fill = SmallHouse.GreenFill;
-                }
+                //house is tax protected
+                data.Text = "";
+                rect.Stroke = SmallHouse.GreenStroke;
+                rect.Fill = SmallHouse.GreenFill;
             }
         }
-
-        public static string CalculateTimeLeft(ulong time)
+        private static DateTime CalculateEndTime(ulong taxPayedTime)
         {
-            if (time == 0) return "?";
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(taxPayedTime);
+        }
 
-            DateTime DT = (new DateTime(1970, 1, 1, 0, 0, 0, 0)).AddSeconds(time);
+        private static string TimeLeftString(ulong taxPayedTime)
+        {
+            DateTime timeEnding = CalculateEndTime(taxPayedTime);
+            if (timeEnding < DateTime.UtcNow) return "?";
 
-            TimeSpan timeLeft = DT - DateTime.UtcNow;
+            TimeSpan timeLeft = timeEnding - DateTime.UtcNow;
 
             if (timeLeft.Days > 0)
                 return string.Format("{0}d", timeLeft.Days);

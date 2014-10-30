@@ -9,18 +9,24 @@ using System.Windows;
 
 namespace mCore.Radar
 {
-    class HouseScanner
+    public enum HouseStatus
     {
-        private RadarPlotter radarPlotter;
-        private RadarWindow radarWindow;
+        Unknown,
+        TaxProtected,
+        ProbablyProtected,
+        Demolishing
+    }
+
+    public class HouseScanner
+    {
+        public static bool HouseScannerEnabled = false;
+        public RadarPlotter radarPlotter;
+        public RadarWindow radarWindow;
         private Core ArcheBuddyCore;
 
         //constant to avoid sending too many taxinfo requests at once
         private List<HouseClone> RedHouses;
-        private Dictionary<uint, bool> HouseIsGreen;
-        public int TaxInfo_CD = 10000;
-        public bool TaxInfo_Ticked = false;
-
+        public Dictionary<uint, HouseClone> AllHouses;
 
         public HouseScanner(RadarPlotter plotter, RadarWindow radar)
         {
@@ -28,55 +34,65 @@ namespace mCore.Radar
             radarWindow = radar;
             ArcheBuddyCore = radar.ArcheBuddyCore;
 
-            RedHouses = new List<HouseClone>();
-            HouseIsGreen = new Dictionary<uint, bool>();
+            AllHouses = new Dictionary<uint, HouseClone>();
         }
 
         public void Tick()
         {
-            //reset the ticker for taxinfo, call once per draw, not per house
-            //using a logical clock because more multi-threading will give me a headache
-            TaxInfo_Ticked = false;
+            //code removed
+            
         }
 
         public void ParseHouse(UIElement shape, Housing h)
         {
-            //code removed
-            ((ITimedObject)shape).UpdateTime(h.weeksWithoutPay, h.taxPayedTime);
+            //a lot of code removed
+            HouseClone hc = new HouseClone(h, ArcheBuddyCore, shape);
+
+            //update the house color or timeout text
+            ((IHousing)shape).UpdateHouse(hc);
         }
 
         public void ForgetHouses()
         {
+            foreach (HouseClone hc in AllHouses.Values) {
+                radarPlotter.VectorCache.Remove(hc.objId);
+                radarWindow.RadarCanvas.Children.Remove(hc.vector);
+            }
+            
             RedHouses = new List<HouseClone>();
-            HouseIsGreen = new Dictionary<uint, bool>();
+            AllHouses = new Dictionary<uint, HouseClone>();
         }
 
         public void PrintRedHouses()
         {
-            ArcheBuddyCore.Log("**************************************************************");
-            ArcheBuddyCore.Log("code was removed");
-            ArcheBuddyCore.Log("**************************************************************");
-
+            //code removed
         }
-
         public void DisposeAll()
         {
+            //not sure if this is necessary, just being safe
             RedHouses = null;
+            AllHouses = null;
         }
     }
 
-    class HouseClone
+    public class HouseClone
     {
         public uint uniqHousingId;
         public byte weeksWithoutPay;
         public ulong taxPayedTime;
+        public uint plantZoneId;
+        public HouseStatus Status = HouseStatus.Unknown;
+        public DateTime timeEnding;
         public string name;
         public string zone;
         public uint housingId;
         public double X;
         public double Y;
         public double Z;
-        public HouseClone(Housing h, Core ArcheBuddyCore)
+        public uint objId;
+        //public bool taxPredicted = false;
+        public UIElement vector;
+        public HouseClone(Housing h, Core ArcheBuddyCore, UIElement v)
         {
             uniqHousingId = h.uniqHousingId;
             weeksWithoutPay = h.weeksWithoutPay;
@@ -86,7 +102,15 @@ namespace mCore.Radar
             X = h.X;
             Y = h.Y;
             Z = h.Z;
+            plantZoneId = h.plantZoneId;
             zone = ArcheBuddyCore.getCurrentTerritory().displayName;
+            vector = v;
+            objId = h.objId;
         }
+
+
+
     }
+
+    
 }

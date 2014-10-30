@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mCore.Radar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace mCore.Models
         }
 
         public RadarDisplaySettings DisplaySettings { get; set; }
+        public HouseScanningSettings HouseScanSettings { get; set; }
         public int RadarWindowWidth { get; set; }
         public int RadarWindowHeight { get; set; }
     }
@@ -73,6 +75,75 @@ namespace mCore.Models
             }
         }
     }
+
+    public class HouseScanningSettings : INotifyPropertyChanged
+    {
+        public bool HouseScanningEnabled
+        {
+            get
+            {
+                return HouseScanner.HouseScannerEnabled;
+            }
+        }
+
+        private bool _showRealEstate = false;
+        private int _taxScanDelay = 9999; //minimum delay between UpdateTaxInfo calls
+        private bool _ignore8x8 = true;
+        private bool _predictTaxStatus = true;
+        private bool _scanEnabled = false;
+        private bool _meleeRangeScanOnly = true;
+
+        public bool ScanEnabled
+        {
+            get { return _scanEnabled; }
+            set { _scanEnabled = value;
+            if (!_scanEnabled) _meleeRangeScanOnly = true;
+                this.OnPropertyChanged(""); }
+        }
+        public bool MeleeScanOnly
+        {
+            get { return _meleeRangeScanOnly; }
+            set { _meleeRangeScanOnly = value; this.OnPropertyChanged("MeleeScanOnly"); }
+        }
+        public bool Ignore8x8
+        {
+            get { return _ignore8x8; }
+            set { _ignore8x8 = value; this.OnPropertyChanged("Ignore8x8"); }
+        }
+
+        public bool PredictTaxStatus
+        {
+            get { return _predictTaxStatus; }
+            set { _predictTaxStatus = value; this.OnPropertyChanged("PredictTaxStatus"); }
+        }
+
+        public int TaxScanDelay
+        {
+            get { return _taxScanDelay; }
+            set {
+                _taxScanDelay = value;
+                this.OnPropertyChanged("TaxScanDelay");
+            }
+        }
+        public bool ShowRealEstate
+        {
+            get { return _showRealEstate; }
+            set
+            {
+                _showRealEstate = value;
+                this.OnPropertyChanged("ShowRealEstate");
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     public class RadarTab : INotifyPropertyChanged
     {
         public int Index { get; set; }
@@ -87,12 +158,8 @@ namespace mCore.Models
         private bool _showFriendlyNPCs;
         private bool _showEnemyNPCs;
         private bool _showTradePacks;
-        private bool _showRealEstate;
         private bool _showDoodads;
         private bool _scanTaxes;
-
-        private int _taxScanRate = 10000;
-
         
         public bool DisplayNames
         {
@@ -145,34 +212,6 @@ namespace mCore.Models
                 this.OnPropertyChanged("ScanForTaxes");
             }
         }
-
-        public int TaxScanRate
-        {
-            get { return _taxScanRate; }
-            set
-            {
-                _taxScanRate = value;
-                this.OnPropertyChanged("TaxScanRate");
-            }
-        }
-        public bool ShowRealEstate
-        {
-            get { return _showRealEstate; }
-            set {
-            _showRealEstate = value;
-                if (value)
-                {  //when realestate is on, hide everything else
-                    _showEnemyPlayers = false;
-                    _showFriendlyPlayers = false;
-                    _showHarvestableTrees = false;
-                    _showHarvestablePlants = false;
-                    _showUprootable = false;
-                    _showFriendlyNPCs = false;
-                    _showEnemyNPCs = false;
-                    _showTradePacks = false;
-                    _showDoodads = false;
-                }
-            this.OnPropertyChanged(null); } }
         
 
         public event PropertyChangedEventHandler PropertyChanged;

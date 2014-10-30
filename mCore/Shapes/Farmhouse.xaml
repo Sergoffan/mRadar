@@ -19,11 +19,11 @@
              StrokeThickness="1"
         />
 
-        <TextBlock Name="Data" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="6"></TextBlock>
+        <TextBlock Name="data" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="6"></TextBlock>
     </Grid>
     <Rectangle Margin="0" Width="16"
                            Height="14"
-                           Fill="#ff006600"
+                           Fill="#88888888"
                Canvas.Top="-10" Canvas.Left="-5">
         <Rectangle.OpacityMask>
             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_home_location_pin}" />

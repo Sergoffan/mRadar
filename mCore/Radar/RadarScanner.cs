@@ -28,6 +28,7 @@ namespace mCore.Radar
             1,
             2, //neutral critter
             101, //Nuian
+            103, //Elf
             167, //Nuia Alliance Sentry
         };
 
@@ -38,7 +39,7 @@ namespace mCore.Radar
         public static uint[] NeutralFactions = new uint[] {
             162 //Neutral Guard
         };
-        public static List<ClassifiedObject> ScanCreatures(RadarTab settings, Core ArcheBuddyCore)
+        public static List<ClassifiedObject> ScanCreatures(RadarSettings settings, Core ArcheBuddyCore)
         {
             List<Creature> AllCreatures = ArcheBuddyCore.getCreatures();
             List<ClassifiedObject> FilteredCreatures = new List<ClassifiedObject>(AllCreatures.Count);
@@ -49,7 +50,7 @@ namespace mCore.Radar
 
             foreach (Creature c in AllCreatures)
             {
-                if (c.type == BotTypes.Housing && settings.ShowRealEstate)
+                if (c.type == BotTypes.Housing && settings.HouseScanSettings.ShowRealEstate)
                 {
                     Housing h = (Housing)c;
                     //this is a house, but what kind?
@@ -87,10 +88,10 @@ namespace mCore.Radar
                     else if (PlayerIsPirate) IsAllied = AlliedFactionsPirate.Contains(c.factionId);
                     else IsAllied = AlliedFactionsWest.Contains(c.factionId);
 
-                    if (IsAllied && settings.ShowAlliedPlayers) {
+                    if (IsAllied && settings.ActiveTab.ShowAlliedPlayers) {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyPlayer, obj = c });
                         continue;
-                    } else if (!IsAllied && settings.ShowEnemyPlayers) {
+                    } else if (!IsAllied && settings.ActiveTab.ShowEnemyPlayers) {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyPlayer, obj = c });
                         continue;
                     }       
@@ -107,12 +108,12 @@ namespace mCore.Radar
                     else if (PlayerIsPirate) IsAllied = AlliedFactionsPirate.Contains(c.factionId);
                     else IsAllied = AlliedFactionsWest.Contains(c.factionId);
 
-                    if (IsAllied && settings.ShowFriendlyNPCs)
+                    if (IsAllied && settings.ActiveTab.ShowFriendlyNPCs)
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyNPC, obj = c });
                         continue;
                     }
-                    else if (!IsAllied && settings.ShowEnemyNPCs)
+                    else if (!IsAllied && settings.ActiveTab.ShowEnemyNPCs)
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyNPC, obj = c });
                         continue;
@@ -182,7 +183,7 @@ namespace mCore.Radar
                     }
                 }
                         
-                if (TradePackNames.Any(doodad.name.Contains) && settings.ShowTradePacks)
+                if (settings.ShowTradePacks && TradePackNames.Any(doodad.name.Contains))
                 {
                     if (sk.name.StartsWith("Pick Up"))
                     {

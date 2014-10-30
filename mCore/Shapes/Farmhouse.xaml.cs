@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mCore.Radar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,16 +19,16 @@ namespace mCore.Shapes
     /// <summary>
     /// Interaction logic for Tree.xaml
     /// </summary>
-    public partial class Farmhouse : Canvas, ITimedObject
+    public partial class Farmhouse : Canvas, IHousing
     {
         public Farmhouse()
         {
             InitializeComponent();
         }
 
-        public void UpdateTime(byte weeksWithoutPay, ulong timeleft)
+        public void UpdateHouse(HouseClone house)
         {
-            SmallHouse.UpdateTime(rect, Data, weeksWithoutPay, timeleft);
+            SmallHouse.UpdateHouseVector(rect, data, house);
         }
     }
 }

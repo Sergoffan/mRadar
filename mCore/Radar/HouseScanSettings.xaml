@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="mCore.Radar.HouseScanSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mRadar="clr-namespace:mCore.Radar"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+        <Label Margin="0,10,0,0" FontStyle="Oblique">Real Estate</Label>
+        <CheckBox IsChecked="{Binding ShowRealEstate, Mode=TwoWay}" Margin="0,0,0,0">Show Real Estate</CheckBox>
+        <StackPanel Orientation="Vertical"  Visibility="{Binding HouseScanningEnabled, Converter={StaticResource BoolToVis}}">
+            
+            <CheckBox IsChecked="{Binding PredictTaxStatus, Mode=TwoWay}"  Margin="0,5,0,0" IsEnabled="{Binding ShowRealEstate}">Predict Tax Status</CheckBox>
+            <CheckBox IsChecked="{Binding Ignore8x8, Mode=TwoWay}" Margin="0,5,0,0" IsEnabled="{Binding ShowRealEstate}">Ignore 8x8</CheckBox>
+            <CheckBox IsChecked="{Binding ScanEnabled, Mode=TwoWay}" Margin="0,5,0,0" IsEnabled="{Binding ShowRealEstate}">Enable Auto Scan</CheckBox>
+            <CheckBox IsChecked="{Binding MeleeScanOnly, Mode=TwoWay}" Margin="0,5,0,0" IsEnabled="{Binding ShowRealEstate}">Melee Range Only Scan</CheckBox>
+        
+                <Label>Scan Delay</Label>
+            <StackPanel Orientation="Horizontal">
+            <Slider HorizontalAlignment="Left" LargeChange="0.2"
+                    Minimum="500" Maximum="9999" 
+                    Value="{Binding TaxScanDelay, Mode=TwoWay}" Style="{DynamicResource FlatSlider}" VerticalAlignment="Center" Margin="10,0,0,0" Width="130"
+                    IsEnabled="{Binding ScanEnabled}"
+                    ></Slider>
+                <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding TaxScanDelay}"></TextBlock>
+                <TextBlock VerticalAlignment="Center">ms</TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

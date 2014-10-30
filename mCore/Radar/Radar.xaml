@@ -24,6 +24,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
                 <ResourceDictionary Source="../Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <ArcheCoreRadar:NegationConverter x:Key="NegationConverter" />
             <ArcheCoreRadar:CenterTranslateConverter x:Key="CenterTranslateConverter" />
             <ArcheCoreRadar:RoundConverter x:Key="RoundConverter" />
@@ -48,13 +49,6 @@
                         <TextBlock VerticalAlignment="Center">Debug: </TextBlock>
                         <Button Margin="5,0,0,0" Name="DebugNearestDoodadButton" Click="DebugNearestDoodadClick">Doodad</Button>
                         <Button Margin="5,0,0,0" Name="DebugTargetCreatureButton" Click="DebugTargetCreatureClick">Target</Button>
-                    </StackPanel>
-                    
-                    <!-- kind of useless right now -->
-                    <StackPanel Orientation="Horizontal" Visibility="Hidden">
-                        <TextBlock VerticalAlignment="Center">Housing: </TextBlock>
-                        <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="DumpRedRealEstate">Export</Button>
-                        <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="ForgetAllHouses">Forget</Button>
                     </StackPanel>
                     
                 </StackPanel>
@@ -85,6 +79,13 @@
                         </TabItem.Header>
                         <StackPanel>
                             <ArcheCoreRadar:RadarDisplaySettings DataContext="{Binding CurrentSettings.DisplaySettings}"/>
+                            <ArcheCoreRadar:HouseScanSettings DataContext="{Binding CurrentSettings.HouseScanSettings}"/>
+                            <!-- kind of useless right now -->
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Visibility="{Binding HouseScannerEnabled, Converter={StaticResource BoolToVis}}" >
+                                <TextBlock VerticalAlignment="Center">Housing:</TextBlock>
+                                <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="DumpRedRealEstate">Export</Button>
+                                <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="ForgetAllHouses">Forget</Button>
+                            </StackPanel>
                         </StackPanel>
                         
                     </TabItem>

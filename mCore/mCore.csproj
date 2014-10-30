@@ -74,6 +74,9 @@
     <Compile Include="Radar\Radar.xaml.cs">
       <DependentUpon>Radar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Radar\HouseScanSettings.xaml.cs">
+      <DependentUpon>HouseScanSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Radar\RadarDisplaySettings.xaml.cs">
       <DependentUpon>RadarDisplaySettings.xaml</DependentUpon>
     </Compile>
@@ -96,7 +99,7 @@
       <DependentUpon>HousingWorkbench.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shapes\IStealthable.cs" />
-    <Compile Include="Shapes\ITimedObject.cs" />
+    <Compile Include="Shapes\IHousing.cs" />
     <Compile Include="Shapes\ITurnable.cs" />
     <Compile Include="Shapes\Leaf..xaml.cs">
       <DependentUpon>Leaf..xaml</DependentUpon>
@@ -126,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Radar\Radar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Radar\HouseScanSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
