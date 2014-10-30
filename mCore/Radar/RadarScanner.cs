@@ -133,14 +133,14 @@ namespace mCore.Radar
             List<ClassifiedObject> FilteredDoodads = new List<ClassifiedObject>(AllDoodads.Count);
             foreach (DoodadObject doodad in AllDoodads)
             {
+                //ignore doodads that are in protected plant zones, or public farms
+                if (doodad.plantZoneId != 0 || doodad.commonFarmId > 0) continue;
+
                 if (doodad.name.StartsWith("Thunderstruck"))
                 {
                     FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.ThunderstruckTree });
                     continue;
                 }
-
-                //ignore doodads that are in protected plant zones, or public farms
-                if (doodad.plantZoneId != 0 || doodad.commonFarmId > 0) continue;
 
                 //try to identify the doodad using its skills
                 Skill sk = GetFirstDoodadSkill(doodad);
