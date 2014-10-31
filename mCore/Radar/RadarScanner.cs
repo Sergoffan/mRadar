@@ -10,32 +10,6 @@ namespace mCore.Radar
 {
     class RadarScanner
     {
-        //115 enemy bird
-        //162 
-        public static uint[] AlliedFactionsEast = new uint[] {
-            1, //glorious nui, gold trader
-            2, //neutral critters
-            111, //warehouse manager, other npcs
-            149, //blue salt brotherhood
-            113, 109, //farran
-            157, //stablehands
-            164, //airship conductor, other critters
-            168 //harani guard
-
-        };
-
-        public static uint[] AlliedFactionsWest = new uint[] {
-            1,
-            2, //neutral critter
-            101, //Nuian
-            103, //Elf
-            167, //Nuia Alliance Sentry
-        };
-
-        public static uint[] AlliedFactionsPirate = new uint[] {
-            1
-        };
-
         public static uint[] NeutralFactions = new uint[] {
             162 //Neutral Guard
         };
@@ -43,10 +17,6 @@ namespace mCore.Radar
         {
             List<Creature> AllCreatures = ArcheBuddyCore.getCreatures();
             List<ClassifiedObject> FilteredCreatures = new List<ClassifiedObject>(AllCreatures.Count);
-
-            uint myfaction = ArcheBuddyCore.me.factionId;
-            bool PlayerIsEast = myfaction == 113 || myfaction == 109;
-            bool PlayerIsPirate = !PlayerIsEast && myfaction == 9999;
 
             foreach (Creature c in AllCreatures)
             {
@@ -64,7 +34,7 @@ namespace mCore.Radar
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.ScarecrowFarm, obj = c });
                         continue;
                     }
-                    else if (h.housingId == 171) //ThatchedFarmhouse
+                    else if (h.housingId == 171 || h.housingId == 200 || h.housingId == 202 || h.housingId == 204) //ThatchedFarmhouse or otherwise 24x24
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.Farmhouse, obj = c });
                         continue;
@@ -79,19 +49,20 @@ namespace mCore.Radar
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.HousingWorkbench, obj = c });
                         continue;
                     }
+                    else if (false)
+                    {
+                        //i don't know what 28x28 or greater houses look like yet
+                        //FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.LargeHousing, obj = c });
+                    }
                 }
 
-                bool IsAllied = false;
+                
                 if (c.type == BotTypes.Player) {
-                    
-                    if (PlayerIsEast) IsAllied = AlliedFactionsEast.Contains(c.factionId);
-                    else if (PlayerIsPirate) IsAllied = AlliedFactionsPirate.Contains(c.factionId);
-                    else IsAllied = AlliedFactionsWest.Contains(c.factionId);
 
-                    if (IsAllied && settings.ActiveTab.ShowAlliedPlayers) {
+                    if (ArcheBuddyCore.isAlly(c) && settings.ActiveTab.ShowAlliedPlayers) {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyPlayer, obj = c });
                         continue;
-                    } else if (!IsAllied && settings.ActiveTab.ShowEnemyPlayers) {
+                    } else if (ArcheBuddyCore.isEnemy(c) && settings.ActiveTab.ShowEnemyPlayers) {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyPlayer, obj = c });
                         continue;
                     }       
@@ -104,16 +75,12 @@ namespace mCore.Radar
 
                     if (c.factionId == 1054) continue; //ignore fast travel portals
 
-                    if (PlayerIsEast) IsAllied = AlliedFactionsEast.Contains(c.factionId);
-                    else if (PlayerIsPirate) IsAllied = AlliedFactionsPirate.Contains(c.factionId);
-                    else IsAllied = AlliedFactionsWest.Contains(c.factionId);
-
-                    if (IsAllied && settings.ActiveTab.ShowFriendlyNPCs)
+                    if (ArcheBuddyCore.isAlly(c) && settings.ActiveTab.ShowFriendlyNPCs)
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyNPC, obj = c });
                         continue;
                     }
-                    else if (!IsAllied && settings.ActiveTab.ShowEnemyNPCs)
+                    else if (ArcheBuddyCore.isEnemy(c) && settings.ActiveTab.ShowEnemyNPCs)
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyNPC, obj = c });
                         continue;
@@ -142,8 +109,19 @@ namespace mCore.Radar
                     continue;
                 }
 
+                if (doodad.name.StartsWith("Sunken Treasure") || doodad.name.StartsWith("Old Jar"))
+                {
+                    FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.Treasure });
+                    continue;
+                }
+
+                if (doodad.name.Contains("Schooling")) {
+                    FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.FishSchool });
+                    continue;
+                }
                 //try to identify the doodad using its skills
                 Skill sk = GetFirstDoodadSkill(doodad);
+                List<Skill> allSkills = doodad.getUseSkills();
                 if (sk == null)
                 {
                     //doodad is not interactable at all, or is a buried treasure site
@@ -151,7 +129,13 @@ namespace mCore.Radar
                 }
 
                 if (settings.ShowHarvestableTrees) {
-                    if (sk.id == 13975 || sk.name.StartsWith("Chop Tree")) {
+                    if (allSkills.Any(s => s.name.StartsWith("Find Fruit")))
+                    {
+                        FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.FruitedTree });
+                        continue;
+                    }
+                    if (allSkills.Any(s => s.name.StartsWith("Chop Tree")))
+                    {
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.HarvestableTree });
                         continue;
                     }
@@ -163,7 +147,7 @@ namespace mCore.Radar
                         continue;
                     }
 
-                    if (sk.name.StartsWith("Mine Ore")) {
+                    if (sk.name.StartsWith("Mine")) {
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.Ore });
                         continue;
                     }
@@ -185,9 +169,12 @@ namespace mCore.Radar
                         
                 if (settings.ShowTradePacks && TradePackNames.Any(doodad.name.Contains))
                 {
-                    if (sk.name.StartsWith("Pick Up"))
+                    if (sk.name.StartsWith("Collect"))
                     {
-                        FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.TradePack });
+                        //trade pack could be bugged and at the bottom of the world or something.  IDK why but these show up a lot
+                        if (Math.Abs(ArcheBuddyCore.me.Z - doodad.Z) < 200) 
+                            FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.TradePack });
+
                         continue;
                     }
                 }

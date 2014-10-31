@@ -66,5 +66,12 @@ namespace mCore.Shapes
             double angleAdjust = turnAngle * -360 / 128 + 50;
             ((RotateTransform)rect.RenderTransform).Angle = angleAdjust;
         }
+
+        public void ShowTradePack(bool hasTradePack)
+        {
+            if (hasTradePack) tradePack.Visibility = Visibility.Visible;
+            else tradePack.Visibility = Visibility.Hidden;
+        }
     }
 }
+

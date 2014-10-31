@@ -21,7 +21,8 @@ namespace mCore.Radar
             {
                 case ObjectCategory.ThunderstruckTree: shape = new Thunderstruck(); break;
 
-                case ObjectCategory.HarvestableTree: shape = new Tree(); break;
+                case ObjectCategory.HarvestableTree: shape = new Tree(false); break;
+                case ObjectCategory.FruitedTree: shape = new Tree(true); break;
 
                 case ObjectCategory.Uprootable: shape = new Up(); break;
 
@@ -30,19 +31,23 @@ namespace mCore.Radar
                 case ObjectCategory.SmallHousing: shape = new SmallHouse(); break;
 
                 case ObjectCategory.Farmhouse: shape = new Farmhouse(); break;
+                case ObjectCategory.LargeHousing: shape = new LargeHouse(); break;
 
                 case ObjectCategory.HarvestablePlant: shape = new Leaf(); break;
                 case ObjectCategory.ScarecrowFarm: shape = new Farm(); break;
                 case ObjectCategory.HousingWorkbench: shape = new HousingWorkbench(); break;
-
+                
                 case ObjectCategory.FriendlyPlayer: shape = new PlayerShape(true); break;
-
                 case ObjectCategory.EnemyPlayer: shape = new PlayerShape(false); break;
 
                 case ObjectCategory.FriendlyNPC: shape = new NpcShape(true); break;
+                
+                case ObjectCategory.TradePack: shape = new TradePack(); break;
+                case ObjectCategory.Treasure: shape = new Treasure(); break;
+                case ObjectCategory.FishSchool: shape = new Fish(); break;
 
                 case ObjectCategory.EnemyNPC: shape = new NpcShape(false); break;
-
+                    
                 default:
                     Ellipse dot = DrawSimpleDot();
                     dot.Fill = self.Color();
@@ -93,7 +98,12 @@ namespace mCore.Radar
                     return Brushes.Green;
                 case ObjectCategory.FriendlyNPC:
                     return Brushes.DarkGreen;
-
+                case ObjectCategory.TradePack:
+                    return Brushes.White;
+                case ObjectCategory.Treasure:
+                    return Brushes.Yellow;
+                case ObjectCategory.FishSchool:
+                    return Brushes.Aqua;
                 default:
                     return Brushes.SlateGray;
             }

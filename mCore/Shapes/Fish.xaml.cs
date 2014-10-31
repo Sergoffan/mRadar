@@ -18,21 +18,11 @@ namespace mCore.Shapes
     /// <summary>
     /// Interaction logic for Tree.xaml
     /// </summary>
-    public partial class Tree : Canvas
+    public partial class Fish : Canvas
     {
-        public Tree(bool IsFruited)
+        public Fish()
         {
-            if (Fruit != null)
-            {
-                if (IsFruited) Fruit.Visibility = Visibility.Visible;
-                else Fruit.Visibility = Visibility.Hidden;
-            }
             InitializeComponent();
-        }
-
-        public void HideFruit()
-        {
-            Fruit.Visibility = Visibility.Hidden;
         }
     }
 }

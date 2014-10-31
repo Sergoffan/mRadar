@@ -1,5 +1,6 @@
 mRadar
 ======
+Current version: 0.9
 
 **You need Visual Studio to compile this.**
 

@@ -215,7 +215,10 @@ namespace mCore.Radar
                 return new RadarSettings
                 {
                     Tabs = new List<RadarTab>(new RadarTab[] { 
-                            new RadarTab { ShowHarvestableTrees = true, ShowAlliedPlayers = true, ShowEnemyPlayers = true, Index = 1,  Name = "1", DisplayNames = true }//,
+                            new RadarTab { ShowHarvestableTrees = true, 
+                                ShowHarvestablePlants = true,
+                                ShowTradePacks = true,
+                                ShowAlliedPlayers = true, ShowEnemyPlayers = true, Index = 1,  Name = "1", DisplayNames = true }//,
                             //new RadarTab { ShowAll = true, Index = 2, Name = "2" }
                         }),
                     ActiveTabIndex = 0,

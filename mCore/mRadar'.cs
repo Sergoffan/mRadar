@@ -37,6 +37,7 @@ namespace mCore
         Thread thread = null;
         public void PluginRun()
         {
+            if (!IsInGame()) return;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Log("Starting ArcheCore");
@@ -59,6 +60,16 @@ namespace mCore
             Log(ex.Message);
         }
 
+        public bool IsInGame()
+        {
+            //thank you alq0rsan for this method
+            if (me == null || gameState != GameState.Ingame)
+            {
+                MessageBox.Show("Please, launch plugin when your character ingame.");
+                return false;
+            }
+            return true;
+        }
         public void Start()
         {
             window = new mCore.Radar.RadarWindow(this);

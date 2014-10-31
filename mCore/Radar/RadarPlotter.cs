@@ -41,7 +41,7 @@ namespace mCore.Radar
             houseScanner = new HouseScanner(this, radarWindow);
 
             ThunderBeeped = new Dictionary<uint, bool>();
-
+            
             ArcheBuddyCore = radarWindow.ArcheBuddyCore;
             if (ArcheBuddyCore != null)
             {
@@ -62,10 +62,11 @@ namespace mCore.Radar
             }
 
             //except for houses
-            foreach (HouseClone house in houseScanner.AllHouses.Values)
-            {
-                house.vector.Visibility = Visibility.Visible;
-            }
+            if (radarWindow.CurrentSettings.HouseScanSettings.ShowRealEstate)
+                foreach (HouseClone house in houseScanner.AllHouses.Values)
+                {
+                    house.vector.Visibility = Visibility.Visible;
+                }
 
             if (doodads != null)
             {
@@ -162,7 +163,7 @@ namespace mCore.Radar
         }
         private UIElement LookupVector(uint key)
         {
-            if (key != null && VectorCache != null && VectorCache.ContainsKey(key))
+            if (VectorCache != null && VectorCache.ContainsKey(key))
             {
                 return VectorCache[key];
             }
@@ -244,6 +245,11 @@ namespace mCore.Radar
             {
                 houseScanner.ParseHouse(shape, (Housing)obj.obj);
             }
+            else if (obj.category == ObjectCategory.HarvestableTree)
+            {
+                //ensure that a fruited tree is not shown as harvestable
+                ((Tree)shape).HideFruit();
+            }
             else if (obj.obj.type == BotTypes.Player)
             {
                 Player p = (Player)obj.obj;
@@ -266,6 +272,10 @@ namespace mCore.Radar
                 {
                     ((ITurnable)shape).Turn(obj.obj.turnAngle);
                 }
+
+                //check for trade pack
+                ((PlayerShape)shape).ShowTradePack(p.getAllEquipedItems().Any(item => item.equipCell == EquipItemPlace.Unknown && RadarScanner.TradePackNames.Any(item.name.Contains)));
+               
             }
             else if (obj.obj.type == BotTypes.Npc && shape is IStealthable)
             {

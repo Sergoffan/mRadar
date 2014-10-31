@@ -33,6 +33,7 @@ namespace mCore.Models
     public enum ObjectCategory
     {
         HarvestableTree,
+        FruitedTree,
         HarvestablePlant,
         Ore,
         Uprootable,
@@ -58,7 +59,7 @@ namespace mCore.Models
     public class RadarDisplaySettings : INotifyPropertyChanged
     {
         private double _radarOpacity;
-        private int _drawDelay = 50;
+        private int _drawDelay = 100;
         private bool _beepThunder = false;
         
         public double RadarOpacity { get { return _radarOpacity; } set { _radarOpacity = value; this.OnPropertyChanged("RadarOpacity"); } }
@@ -87,7 +88,7 @@ namespace mCore.Models
         }
 
         private bool _showRealEstate = false;
-        private int _taxScanDelay = 9999; //minimum delay between UpdateTaxInfo calls
+        private int _taxScanDelay = 5000; //minimum delay between UpdateTaxInfo calls
         private bool _ignore8x8 = true;
         private bool _predictTaxStatus = true;
         private bool _scanEnabled = false;

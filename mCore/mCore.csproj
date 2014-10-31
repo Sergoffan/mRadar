@@ -89,6 +89,9 @@
     <Compile Include="Shapes\Farm.xaml.cs">
       <DependentUpon>Farm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shapes\LargeHouse.xaml.cs">
+      <DependentUpon>LargeHouse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shapes\Farmhouse.xaml.cs">
       <DependentUpon>Farmhouse.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,15 @@
     <Compile Include="Shapes\IStealthable.cs" />
     <Compile Include="Shapes\IHousing.cs" />
     <Compile Include="Shapes\ITurnable.cs" />
+    <Compile Include="Shapes\Fish.xaml.cs">
+      <DependentUpon>Fish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shapes\Treasure.xaml.cs">
+      <DependentUpon>Treasure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shapes\TradePack.xaml.cs">
+      <DependentUpon>TradePack.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shapes\Leaf..xaml.cs">
       <DependentUpon>Leaf..xaml</DependentUpon>
     </Compile>
@@ -153,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Shapes\LargeHouse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Shapes\Farmhouse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -162,6 +178,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Shapes\HousingWorkbench.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\Fish.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\Treasure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\TradePack.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

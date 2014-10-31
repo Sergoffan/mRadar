@@ -28,7 +28,7 @@
                 <Label>Scan Delay</Label>
             <StackPanel Orientation="Horizontal">
             <Slider HorizontalAlignment="Left" LargeChange="0.2"
-                    Minimum="500" Maximum="9999" 
+                    Minimum="500" Maximum="5000" 
                     Value="{Binding TaxScanDelay, Mode=TwoWay}" Style="{DynamicResource FlatSlider}" VerticalAlignment="Center" Margin="10,0,0,0" Width="130"
                     IsEnabled="{Binding ScanEnabled}"
                     ></Slider>

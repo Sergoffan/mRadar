@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mCore.Radar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,21 +19,16 @@ namespace mCore.Shapes
     /// <summary>
     /// Interaction logic for Tree.xaml
     /// </summary>
-    public partial class Tree : Canvas
+    public partial class LargeHouse : Canvas, IHousing
     {
-        public Tree(bool IsFruited)
+        public LargeHouse()
         {
-            if (Fruit != null)
-            {
-                if (IsFruited) Fruit.Visibility = Visibility.Visible;
-                else Fruit.Visibility = Visibility.Hidden;
-            }
             InitializeComponent();
         }
 
-        public void HideFruit()
+        public void UpdateHouse(HouseClone house)
         {
-            Fruit.Visibility = Visibility.Hidden;
+            SmallHouse.UpdateHouseVector(rect, data, house);
         }
     }
 }
