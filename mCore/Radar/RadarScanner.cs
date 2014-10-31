@@ -109,7 +109,7 @@ namespace mCore.Radar
                     continue;
                 }
 
-                if (doodad.name.StartsWith("Sunken Treasure") || doodad.name.StartsWith("Old Jar"))
+                if (doodad.name.StartsWith("Sunken Treasure") || doodad.name.StartsWith("Old Jar") || doodad.name.StartsWith("Old Relic"))
                 {
                     FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.Treasure });
                     continue;
@@ -216,6 +216,8 @@ namespace mCore.Radar
             "White Arden",
             "Iron Pack",
             "Fabric Pack",
+            "Marlin",
+            "Sailfish",
             "Lumber Pack",};
     }
 }
