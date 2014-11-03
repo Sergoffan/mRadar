@@ -90,6 +90,9 @@
     <Compile Include="Shapes\Galleon.xaml.cs">
       <DependentUpon>Galleon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shapes\FishingShip.xaml.cs">
+      <DependentUpon>FishingShip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shapes\MerchantShip.xaml.cs">
       <DependentUpon>MerchantShip.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="Shapes\Galleon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\FishingShip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

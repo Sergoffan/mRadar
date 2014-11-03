@@ -105,7 +105,7 @@
                             </Rectangle>
                         </TabItem.Header>
                         <StackPanel>
-                            <TextBlock Margin="10,20,0,0">mRadar v0.95 by Tempura</TextBlock>
+                            <TextBlock Margin="10,20,0,0">mRadar v0.97 by Tempura</TextBlock>
                             <TextBlock Margin="10,20,0,0" Visibility="{Binding HouseScannerEnabled, Converter={StaticResource BoolToVis}}">Thank you for donating!</TextBlock>
                             <TextBlock Margin="10,20,0,0" Visibility="{Binding FreeEdition, Converter={StaticResource BoolToVis}}">Free Edition, donate to unlock House Scanner</TextBlock>
                             <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Tips:</TextBlock>

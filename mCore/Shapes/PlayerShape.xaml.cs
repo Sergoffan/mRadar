@@ -47,11 +47,18 @@ namespace mCore.Shapes
             DeathMark.Visibility = Visibility.Hidden;
         }
 
-        public void Kill()
+        public void Kill(bool isAlive)
         {
-            DeathMark.Visibility = Visibility.Visible;
-            rect.Visibility = Visibility.Hidden;
-            tradePack.Visibility = Visibility.Hidden;
+            if (isAlive)
+            {
+                DeathMark.Visibility = Visibility.Hidden;
+                rect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DeathMark.Visibility = Visibility.Visible;
+                rect.Visibility = Visibility.Hidden;
+            }
         }
 
         public void Stealth(bool stealthed)

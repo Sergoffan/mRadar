@@ -9,6 +9,6 @@ namespace mCore.Shapes
 {
     interface IKillable
     {
-        void Kill();
+        void Kill(bool isAlive);
     }
 }

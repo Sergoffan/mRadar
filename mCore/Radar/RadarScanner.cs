@@ -107,7 +107,16 @@ namespace mCore.Radar
                             continue;
                         }
                     } else if (s.slaveId == 110) { //fishing boats
-
+                        if (ArcheBuddyCore.isAlly(s) && settings.ActiveTab.ShowAlliedPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyFishingBoat, obj = s });
+                            continue;
+                        }
+                        else if (ArcheBuddyCore.isEnemy(s) && settings.ActiveTab.ShowEnemyPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyFishingBoat, obj = s });
+                            continue;
+                        }
                     }
                     else if (s.slaveId == 75) //merchant ships
                     {
@@ -164,7 +173,7 @@ namespace mCore.Radar
                     continue;
                 }
 
-                if (doodad.name.Contains("Schooling")) {
+                if (doodad.name.Contains("Schooling") || doodad.name.Contains("Feeding Frenzy")) {
                     FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.FishSchool });
                     continue;
                 }
@@ -267,6 +276,7 @@ namespace mCore.Radar
             "Fabric Pack",
             "Marlin",
             "Sailfish",
-            "Lumber Pack",};
+            "Lumber Pack",
+            "Sturgeon"};
     }
 }

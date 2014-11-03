@@ -295,9 +295,9 @@ namespace mCore.Radar
             {
                 Player p = (Player)obj.obj;
 
-                if (!p.isAlive() && shape is IKillable)
+                if (shape is IKillable)
                 {
-                    ((IKillable)shape).Kill();
+                    ((IKillable)shape).Kill(p.isAlive());
                 }
                 if (shape is IStealthable) { 
                     bool IsStealthed = false;

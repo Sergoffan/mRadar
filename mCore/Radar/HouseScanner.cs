@@ -59,7 +59,7 @@ namespace mCore.Radar
             //update the house color or timeout text
             ((IHousing)shape).UpdateHouse(h, status);
         }
-
+        
         public void ForgetHouses()
         {
 

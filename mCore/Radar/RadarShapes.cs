@@ -46,6 +46,9 @@ namespace mCore.Radar
                 case ObjectCategory.FriendlyMerchantShip: shape = new MerchantShip(true); break;
                 case ObjectCategory.EnemyMerchantShip: shape = new MerchantShip(false); break;
 
+                case ObjectCategory.FriendlyFishingBoat: shape = new FishingShip(true); break;
+                case ObjectCategory.EnemyFishingBoat: shape = new FishingShip(false); break;
+
                 case ObjectCategory.FriendlyGalleon: shape = new Galleon(true); break;
                 case ObjectCategory.EnemyGalleon: shape = new Galleon(false); break;
                 case ObjectCategory.FriendlyNPC: shape = new NpcShape(true); break;
