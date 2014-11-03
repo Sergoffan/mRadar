@@ -9,16 +9,16 @@
         <ResourceDictionary Source="../Resources/Icons.xaml" />
     </Canvas.Resources>
 
-    <Rectangle Width="2" Height="6" Fill="#ff884400" Canvas.Top="-4" Canvas.Left="2" Panel.ZIndex="1" Name="Trunk">
+    <Rectangle Width="2" Height="6" Fill="#ff884400" Canvas.Top="-4" Canvas.Left="2" Panel.ZIndex="1">
 
     </Rectangle>
-    <Rectangle Name="TreeShape" Margin="0" Width="10"
+    <Rectangle Margin="0" Width="10"
                            Height="15"
                            Fill="#ff006600"
                Canvas.Top="-15" Canvas.Left="-2"
                            >
         <Rectangle.OpacityMask>
-            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_tree}" x:Name="VisualID"/>
+            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_tree}" />
         </Rectangle.OpacityMask>
     </Rectangle>
     <Canvas Name="Fruit">

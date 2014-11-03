@@ -24,7 +24,7 @@ namespace mCore.Radar
                 case ObjectCategory.HarvestableTree: shape = new Tree(false); break;
                 case ObjectCategory.FruitedTree: shape = new Tree(true); break;
 
-                //case ObjectCategory.Uprootable: shape = new Up(); break;
+                case ObjectCategory.Uprootable: shape = new Up(); break;
 
                 case ObjectCategory.ScarecrowGarden: shape = new Garden(); break;
 
@@ -40,14 +40,6 @@ namespace mCore.Radar
                 case ObjectCategory.FriendlyPlayer: shape = new PlayerShape(true); break;
                 case ObjectCategory.EnemyPlayer: shape = new PlayerShape(false); break;
 
-                case ObjectCategory.FriendlyClipper: shape = new Clipper(true); break;
-                case ObjectCategory.EnemyClipper: shape = new Clipper(false); break;
-
-                case ObjectCategory.FriendlyMerchantShip: shape = new MerchantShip(true); break;
-                case ObjectCategory.EnemyMerchantShip: shape = new MerchantShip(false); break;
-
-                case ObjectCategory.FriendlyGalleon: shape = new Galleon(true); break;
-                case ObjectCategory.EnemyGalleon: shape = new Galleon(false); break;
                 case ObjectCategory.FriendlyNPC: shape = new NpcShape(true); break;
                 
                 case ObjectCategory.TradePack: shape = new TradePack(); break;
@@ -78,8 +70,6 @@ namespace mCore.Radar
             dot.Height = 6;
             return dot;
         }
-
-        public static SolidColorBrush FriendlyPlayerText = new SolidColorBrush(System.Windows.Media.Color.FromArgb(160,32,255,32));
         /// <summary>
         /// Returns a Brush color that represents an ObjectCategory, used when drawing simple dots and text names
         /// </summary>
@@ -105,7 +95,7 @@ namespace mCore.Radar
                     return Brushes.OrangeRed;
 
                 case ObjectCategory.FriendlyPlayer:
-                    return FriendlyPlayerText;
+                    return Brushes.Green;
                 case ObjectCategory.FriendlyNPC:
                     return Brushes.DarkGreen;
                 case ObjectCategory.TradePack:

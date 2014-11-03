@@ -5,11 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-<!--
     <Canvas.Resources>
         <ResourceDictionary Source="../Resources/Icons.xaml" />
     </Canvas.Resources>
-    -->
     <Grid Canvas.Top="-14"
           Canvas.Left="-9">
         <Rectangle
@@ -23,7 +21,6 @@
 
         <TextBlock Name="data" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="6"></TextBlock>
     </Grid>
-    <!--
     <Rectangle Margin="0" Width="16"
                            Height="14"
                            Fill="#88888888"
@@ -32,5 +29,4 @@
             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_home_location_pin}" />
         </Rectangle.OpacityMask>
     </Rectangle>
-    -->
 </Canvas>

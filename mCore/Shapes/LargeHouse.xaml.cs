@@ -1,5 +1,4 @@
-﻿using ArcheBuddy.Bot.Classes;
-using mCore.Radar;
+﻿using mCore.Radar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +26,9 @@ namespace mCore.Shapes
             InitializeComponent();
         }
 
-        public void UpdateHouse(Housing house, HouseStatus status)
+        public void UpdateHouse(HouseClone house)
         {
-            SmallHouse.UpdateHouseVector(rect, data, house, status);
+            SmallHouse.UpdateHouseVector(rect, data, house);
         }
     }
 }

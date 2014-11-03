@@ -4,7 +4,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ArcheCoreRadar="clr-namespace:mCore.Radar"
         xmlns:sys="clr-namespace:System"
-        Title="Radar" Height="500" Width="750"
+        Title="Radar" Height="500" Width="700"
         ShowMaxRestoreButton="False" ShowMinButton="False"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         ShowTitleBar="False"
@@ -52,7 +52,7 @@
                     </StackPanel>
                     
                 </StackPanel>
-                <TabControl Name="RadarSettingsTabs" Controls:ControlsHelper.IsUnderlined="True" Width="250" SelectedIndex="0" Background="Black" DockPanel.Dock="Top">
+                <TabControl Name="RadarSettingsTabs" Controls:ControlsHelper.IsUnderlined="True" Width="200" SelectedIndex="0" Background="Black" DockPanel.Dock="Top">
                     <TabItem>
                         <TabItem.Header>
                             <Rectangle Margin="10" Width="20"
@@ -81,15 +81,11 @@
                             <ArcheCoreRadar:RadarDisplaySettings DataContext="{Binding CurrentSettings.DisplaySettings}"/>
                             <ArcheCoreRadar:HouseScanSettings DataContext="{Binding CurrentSettings.HouseScanSettings}"/>
                             <!-- kind of useless right now -->
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="{Binding HouseScannerEnabled, Converter={StaticResource BoolToVis}}" >
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Visibility="{Binding HouseScannerEnabled, Converter={StaticResource BoolToVis}}" >
                                 <TextBlock VerticalAlignment="Center">Housing:</TextBlock>
                                 <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="DumpRedRealEstate">Export</Button>
                                 <Button Margin="5,0,0,0" HorizontalAlignment="Right" Name="ForgetAllHouses">Forget</Button>
                             </StackPanel>
-                            <!--
-                            <Label Margin="2,2,0,0">MemKb:</Label>
-                            <TextBlock Name="MemUsage" Text="{Binding MemoryUsage}" VerticalAlignment="Center" Width="80"></TextBlock>
-                            -->
                         </StackPanel>
                         
                     </TabItem>
@@ -105,13 +101,10 @@
                             </Rectangle>
                         </TabItem.Header>
                         <StackPanel>
-                            <TextBlock Margin="10,20,0,0">mRadar v0.95 by Tempura</TextBlock>
-                            <TextBlock Margin="10,20,0,0" Visibility="{Binding HouseScannerEnabled, Converter={StaticResource BoolToVis}}">Thank you for donating!</TextBlock>
-                            <TextBlock Margin="10,20,0,0" Visibility="{Binding FreeEdition, Converter={StaticResource BoolToVis}}">Free Edition, donate to unlock House Scanner</TextBlock>
+                            <TextBlock Margin="10,20,0,0">mRadar by Tempura</TextBlock>
                             <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Tips:</TextBlock>
                             <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Double click radar to hide settings box.</TextBlock>
                             <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Opacity 0 will let you interact with game underneath.</TextBlock>
-                            <TextBlock Margin="10,20,0,0" TextWrapping="Wrap">Feedback, suggestions, donations welcome!</TextBlock>
                         </StackPanel>
                     </TabItem>
                     <!--

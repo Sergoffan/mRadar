@@ -9,7 +9,9 @@
         <ResourceDictionary Source="../Resources/Icons.xaml" />
     </Canvas.Resources>
 
-    <Rectangle Width="2" Height="12" Fill="#ffffffff" Canvas.Top="-7" Canvas.Left="2"/>
+    <Rectangle Width="2" Height="12" Fill="#ffffffff" Canvas.Top="-7" Canvas.Left="2">
+
+    </Rectangle>
     <Rectangle Margin="0" Width="12"
                            Height="19"
                            Fill="#ffaa33ff"
@@ -17,7 +19,7 @@
                
                            >
         <Rectangle.OpacityMask>
-            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_tree_pine}"/>
+            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_tree}"/>
         </Rectangle.OpacityMask>
     </Rectangle>
     <!--<Rectangle Fill="#ffaa6600" Width="4" Height="6" Canvas.Top="5" Canvas.Left="2"/>

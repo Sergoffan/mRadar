@@ -18,7 +18,7 @@ namespace mCore.Shapes
     /// <summary>
     /// Interaction logic for Tree.xaml
     /// </summary>
-    public partial class PlayerShape : Canvas, IStealthable, ITurnable, IKillable
+    public partial class PlayerShape : Canvas, IStealthable, ITurnable
     {
         public static SolidColorBrush FriendlyStealthed = new SolidColorBrush(Color.FromArgb(96, 0, 255, 255));
         public static SolidColorBrush FriendlyStealthedFill = new SolidColorBrush(Color.FromArgb(96, 0, 255, 255));
@@ -26,8 +26,8 @@ namespace mCore.Shapes
         public static SolidColorBrush Friendly = new SolidColorBrush(Color.FromArgb(255,0,196,0));
         public static SolidColorBrush FriendlyFill = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0));
 
-        public static SolidColorBrush EnemyStealthed = new SolidColorBrush(Color.FromArgb(196, 208, 44, 168));
-        public static SolidColorBrush EnemyStealthedFill = new SolidColorBrush(Color.FromArgb(64, 255, 0, 228));
+        public static SolidColorBrush EnemyStealthed = new SolidColorBrush(Color.FromArgb(196, 0, 255, 128));
+        public static SolidColorBrush EnemyStealthedFill = new SolidColorBrush(Color.FromArgb(64, 255, 0, 0));
 
         public static SolidColorBrush Enemy = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         public static SolidColorBrush EnemyFill = new SolidColorBrush(Color.FromArgb(128, 255, 0, 0));
@@ -43,16 +43,9 @@ namespace mCore.Shapes
                 rect.Stroke = Enemy;
                 rect.Fill = EnemyFill;
             }
-
-            DeathMark.Visibility = Visibility.Hidden;
         }
 
-        public void Kill()
-        {
-            DeathMark.Visibility = Visibility.Visible;
-            rect.Visibility = Visibility.Hidden;
-            tradePack.Visibility = Visibility.Hidden;
-        }
+
 
         public void Stealth(bool stealthed)
         {
