@@ -1,4 +1,5 @@
-﻿using mCore.Radar;
+﻿using ArcheBuddy.Bot.Classes;
+using mCore.Radar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace mCore.Shapes
 {
     interface IHousing
     {
-        void UpdateHouse(HouseClone house);
+        void UpdateHouse(Housing house, HouseStatus status);
     }
 }

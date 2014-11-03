@@ -30,6 +30,11 @@ namespace mCore.Shapes
             InitializeComponent();
         }
 
+        public void ThunderStrike()
+        {
+            TreeShape.Fill = Brushes.Magenta;
+            Trunk.Fill = Brushes.White;
+        }
         public void HideFruit()
         {
             Fruit.Visibility = Visibility.Hidden;
