@@ -41,6 +41,19 @@ namespace mCore.Models
         EnemyNPC,
         FriendlyPlayer,
         FriendlyNPC,
+
+        FriendlyClipper,
+        FriendlyMerchantShip,
+        FriendlyFishingBoat,
+        FriendlyGalleon,
+        FriendlyBlackPearl,
+        
+        EnemyClipper,
+        EnemyMerchantShip,
+        EnemyFishingBoat,
+        EnemyGalleon,
+        EnemyBlackPearl,
+
         TradePack,
         Butcherable,
         ThunderstruckTree,

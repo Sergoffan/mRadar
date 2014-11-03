@@ -42,6 +42,10 @@ namespace mCore.Radar
         private double _playerY = 59;
         private double _playerAngleDegrees = 180;
         public bool HouseScannerEnabled { get { return HouseScanner.HouseScannerEnabled; } }
+        public bool FreeEdition { get { return !HouseScanner.HouseScannerEnabled; } }
+
+        //private long memUsage = 0;
+        //public long MemoryUsage { get { return memUsage; } set { memUsage = value; } }
 
         public double PlayerX { get { return _playerX; } set { _playerX = value; } }
         public double PlayerY { get { return _playerY; } set { _playerY = value; } }
@@ -63,7 +67,7 @@ namespace mCore.Radar
             this.AllowsTransparency = true;
 
             Plotter = new RadarPlotter(this);
-            
+
             //Log("Radar Loaded");
             worker.WorkerSupportsCancellation = true;
         }
@@ -101,10 +105,15 @@ namespace mCore.Radar
         {
             try
             {
+                //update memory usage
+                //MemoryUsage = GC.GetTotalMemory(false) / 1024;
+
                 //progress changed is called when the radar has new data that requires update
                 //we use the UI thread to do the update
                 if (ArcheBuddyCore != null && Plotter != null)
                     Plotter.Draw(doodads, creatures);
+
+                
             }
             catch (Exception ex)
             {
@@ -112,6 +121,12 @@ namespace mCore.Radar
                 ArcheBuddyCore.Log("Radar Thread threw exception while drawing.");
                 ArcheBuddyCore.Log(ex.Message);
                 ArcheBuddyCore.Log(st);
+
+                ArcheBuddyCore.Log("Stopping mRadar preemptively as a precaution.  Please restart plugin.  If error persists, discontinue and notify Tempura.");
+                worker.CancelAsync();
+                Plotter.DisposeAll();
+                Thread.Sleep(1000);
+                this.Close();
             }
         }
 
@@ -157,6 +172,8 @@ namespace mCore.Radar
         {
             Plotter.houseScanner.ForgetHouses();
         }
+
+
         private List<ClassifiedObject> doodads = null;
         private List<ClassifiedObject> creatures = null;
         void Scan()

@@ -34,7 +34,11 @@ namespace mCore.Radar
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.ScarecrowFarm, obj = c });
                         continue;
                     }
-                    else if (h.housingId == 171 || h.housingId == 200 || h.housingId == 202 || h.housingId == 204) //ThatchedFarmhouse or otherwise 24x24
+                    else if (h.housingId == 171 || h.housingId == 199 || 
+                            h.housingId == 182 || h.housingId == 200 || 
+                            h.housingId == 202 || h.housingId == 204 || //actually some of these are Manors
+                            h.housingId == 194 || h.housingId == 203 || 
+                            h.housingId == 201 || h.housingId == 197) //ThatchedFarmhouse or otherwise 24x24
                     {
                         FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.Farmhouse, obj = c });
                         continue;
@@ -87,6 +91,51 @@ namespace mCore.Radar
                     }     
                 }
 
+                if (c.type == BotTypes.Slave)
+                {
+                    Slave s = (Slave)c;
+                    if (s.slaveId == 14 || s.slaveId == 76) //clippers
+                    {
+                        if (ArcheBuddyCore.isAlly(s) && settings.ActiveTab.ShowAlliedPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyClipper, obj = s });
+                            continue;
+                        }
+                        else if (ArcheBuddyCore.isEnemy(s) && settings.ActiveTab.ShowEnemyPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyClipper, obj = s });
+                            continue;
+                        }
+                    } else if (s.slaveId == 110) { //fishing boats
+
+                    }
+                    else if (s.slaveId == 75) //merchant ships
+                    {
+                        if (ArcheBuddyCore.isAlly(s) && settings.ActiveTab.ShowAlliedPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyMerchantShip, obj = s });
+                            continue;
+                        }
+                        else if (ArcheBuddyCore.isEnemy(s) && settings.ActiveTab.ShowEnemyPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyMerchantShip, obj = s });
+                            continue;
+                        }
+                    }
+                    else if (s.slaveId == 21) //galleons 
+                    {
+                        if (ArcheBuddyCore.isAlly(s) && settings.ActiveTab.ShowAlliedPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.FriendlyGalleon, obj = s });
+                            continue;
+                        }
+                        else if (ArcheBuddyCore.isEnemy(s) && settings.ActiveTab.ShowEnemyPlayers)
+                        {
+                            FilteredCreatures.Add(new ClassifiedObject { category = ObjectCategory.EnemyGalleon, obj = s });
+                            continue;
+                        }
+                    }
+                }
                 if (c.type == BotTypes.Transfer)
                 {
                     //it's an airship or carriage
@@ -147,7 +196,7 @@ namespace mCore.Radar
                         continue;
                     }
 
-                    if (sk.name.StartsWith("Mine")) {
+                    if (doodad.id == 1671) { //Both Iron and Fortuna veins seem to have this same id
                         FilteredDoodads.Add(new ClassifiedObject() { obj = doodad, category = ObjectCategory.Ore });
                         continue;
                     }

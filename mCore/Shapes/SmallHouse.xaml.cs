@@ -1,4 +1,5 @@
-﻿using mCore.Radar;
+﻿using ArcheBuddy.Bot.Classes;
+using mCore.Radar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,25 +38,25 @@ namespace mCore.Shapes
             InitializeComponent();
         }
 
-        public void UpdateHouse(HouseClone house)
+        public void UpdateHouse(Housing house, HouseStatus status)
         {
-            UpdateHouseVector(rect, Data, house);
+            UpdateHouseVector(rect, Data, house, status);
         }
-        public static void UpdateHouseVector(Shape rect, TextBlock data, HouseClone house)
+        public static void UpdateHouseVector(Shape rect, TextBlock data, Housing house, HouseStatus status)
         {
-            if (house.Status == HouseStatus.Unknown)
+            if (status == HouseStatus.Unknown)
             {
                 data.Text = "?";
                 rect.Stroke = GrayStroke;
                 rect.Fill = GrayFill;
             }
-            else if (house.Status == HouseStatus.ProbablyProtected)
+            else if (status == HouseStatus.ProbablyProtected)
             {
                 data.Text = "";
                 rect.Stroke = ProbablyStroke;
                 rect.Fill = ProbablyFill;
             }
-            else if (house.Status == HouseStatus.Demolishing)
+            else if (status == HouseStatus.Demolishing)
             {
                 data.Text = TimeLeftString(house.taxPayedTime);
                 rect.Stroke = RedStroke;

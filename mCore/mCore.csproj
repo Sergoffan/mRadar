@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Games\AB\Plugins\mCore\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -86,6 +86,13 @@
     <Compile Include="Radar\RadarTabSettings.xaml.cs">
       <DependentUpon>RadarTabSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shapes\IKillable.cs" />
+    <Compile Include="Shapes\Galleon.xaml.cs">
+      <DependentUpon>Galleon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shapes\MerchantShip.xaml.cs">
+      <DependentUpon>MerchantShip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shapes\Farm.xaml.cs">
       <DependentUpon>Farm.xaml</DependentUpon>
     </Compile>
@@ -106,6 +113,9 @@
     <Compile Include="Shapes\ITurnable.cs" />
     <Compile Include="Shapes\Fish.xaml.cs">
       <DependentUpon>Fish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shapes\Clipper.xaml.cs">
+      <DependentUpon>Clipper.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shapes\Treasure.xaml.cs">
       <DependentUpon>Treasure.xaml</DependentUpon>
@@ -161,6 +171,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
+    <Page Include="Shapes\Galleon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\MerchantShip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Shapes\Farm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +200,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Shapes\Fish.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shapes\Clipper.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
