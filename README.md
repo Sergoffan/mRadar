@@ -1,6 +1,6 @@
 mRadar
 ======
-Current version: 0.91
+Current version: 0.95
 -Added Marlin and Sailfish to tradepack filter
 -Added "Old Relic" chest to treasure filter
 
@@ -8,7 +8,7 @@ Current version: 0.91
 
 If you do not have Visual Studio or would like a compiled version:
 
-> [mRadar 0.91 (Free)](https://dl.dropboxusercontent.com/u/1232321/mRadar0.95Free.rar)
+> [mRadar 0.95 (Free)](https://dl.dropboxusercontent.com/u/1232321/mRadar0.95Free.rar)
 
 If you like this, your donation would help me to work more to add features and respond to feedback!
 
