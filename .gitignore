@@ -9,8 +9,11 @@ mCore/obj/Debug/mCore.csproj.FileListAbsolute.txt
 mCore/obj/Debug/mCore.csprojResolveAssemblyReference.cache
 mCore/obj/Debug/mRadar.dll
 
+obj
+bin
 mCore/obj/Release/
 mDebug/bin/Release/*
 mDebug/obj/Release/*
 mCore/obj/Release/GeneratedInternalTypeHelper.g.cs
 mCore/obj/Release/*
+mCore/obj/Release/mCore.csproj.FileListAbsolute.txt
