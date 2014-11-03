@@ -10,5 +10,7 @@ mCore/obj/Debug/mCore.csprojResolveAssemblyReference.cache
 mCore/obj/Debug/mRadar.dll
 
 mCore/obj/Release/
-mDebug/bin/Release/
-mDebug/obj/Release/
+mDebug/bin/Release/*
+mDebug/obj/Release/*
+mCore/obj/Release/GeneratedInternalTypeHelper.g.cs
+mCore/obj/Release/*
